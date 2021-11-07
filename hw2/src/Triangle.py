@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import math
 
-from src.Figure import Figure
+from hw2.src.Figure import Figure
 
 
 class Triangle(Figure):

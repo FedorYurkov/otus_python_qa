@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from src.Rectangle import Rectangle
-from src.Square import Square
+from hw2.src import Rectangle
+from hw2.src.Square import Square
 
 
 def test_rectangle_name():

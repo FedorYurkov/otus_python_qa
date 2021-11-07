@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from src.Circle import Circle
-from src.Square import Square
+from hw2.src.Circle import Circle
+from hw2.src.Square import Square
 
 
 def test_circle_name():

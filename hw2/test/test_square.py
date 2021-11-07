@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from src.Square import Square
+from hw2.src.Square import Square
 
 
 def test_square_name():
