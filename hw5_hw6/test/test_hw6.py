@@ -8,7 +8,7 @@ from hw5_hw6.application.pages.admin_products_page import AdminProductsPage
 
 
 def test_add_new_product_from_admin(app):
-    admin_user = {"login": "demo", "password": "demo"}
+    admin_user = {"login": "user", "password": "bitnami"}
     uniq = int(time())
     product = {"name": f"PRODUCT_{uniq}", "tag": f"TAG_{uniq}", "model": f"MODEL_{uniq}"}
 
@@ -29,8 +29,20 @@ def test_add_new_product_from_admin(app):
     assert admin_products_page.is_product_in_list(product["name"])
 
 
-def test_remove_product_from_admin():
-    pass
+def test_remove_product_from_admin(app):
+    admin_user = {"login": "user", "password": "bitnami"}
+    admin_auth_page = app.open_admin_page()
+    admin_auth_page.login(admin_user["login"], admin_user["password"])
+
+    AdminMainPage(app).open_admin_products_page()
+    admin_products_page = AdminProductsPage(app)
+    products_before = admin_products_page.get_products_rows()
+    admin_products_page.mark_product_checked(products_before[-1])\
+                       .click_product_delete_button()\
+                       .confirm_product_delete()
+
+    products_after = admin_products_page.get_products_rows()
+    assert len(products_after) == len(products_before) - 1
 
 
 def test_user_registration(app):
