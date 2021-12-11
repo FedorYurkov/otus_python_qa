@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.common.by import By
 
-from hw5.application.pages.base_page import BasePage
+from hw5_hw6.application.pages.base_page import BasePage
 
 
 class CatalogPage(BasePage):

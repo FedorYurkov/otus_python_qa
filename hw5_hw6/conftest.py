@@ -2,7 +2,7 @@
 import pytest
 from selenium import webdriver
 
-from hw5.application.app import App
+from hw5_hw6.application.app import App
 
 
 def pytest_addoption(parser):
