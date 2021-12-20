@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-from hw5.application.pages.admin_page import AdminPage
-from hw5.application.pages.catalog_page import CatalogPage
-from hw5.application.pages.main_page import MainPage
-from hw5.application.pages.product_page import ProductPage
-from hw5.application.pages.user_auth_page import UserAuthPage
+from hw5_hw6.application.pages.admin_auth_page import AdminPage
+from hw5_hw6.application.pages.catalog_page import CatalogPage
+from hw5_hw6.application.pages.main_page import MainPage
+from hw5_hw6.application.pages.product_page import ProductPage
+from hw5_hw6.application.pages.user_auth_page import UserAuthPage
 
 
 class App:
 
     def __init__(self, driver, base_url):
         self.driver = driver
+        self.driver.implicitly_wait(3)
         self.base_url = base_url
 
         self.main_page = None
@@ -39,7 +40,7 @@ class App:
         return self.product_page
 
     def open_admin_page(self):
-        self.driver.get(self.base_url + "/admin")
+        self.driver.get(self.base_url + "/admin/")
         if not self.admin_page:
             self.admin_page = AdminPage(self)
         return self.admin_page
