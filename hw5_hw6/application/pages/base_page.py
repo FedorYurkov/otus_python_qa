@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -17,8 +19,15 @@ class BasePage:
     def __init__(self, app):
         self.driver = app.driver
         self.wait = WebDriverWait(self.driver, 15)
+        self.__config_logger()
+
+    def __config_logger(self):
+        self.logger = logging.getLogger(type(self).__name__)
+        self.logger.addHandler(logging.FileHandler(self.driver.log_path))
+        self.logger.setLevel(level=self.driver.log_level)
 
     def assert_element(self, locator, special_timeout=None):
+        self.logger.info(f"{self.logger.name}: Assert element: {locator} with special_timeout {special_timeout}")
         if special_timeout:
             wait = WebDriverWait(self.driver, special_timeout)
         else:
@@ -30,6 +39,7 @@ class BasePage:
             raise AssertionError(f"Не дождался видимости элемента: {locator}")
 
     def type(self, locator, value):
+        self.logger.info(f"{self.logger.name}: Type '{value}' to element: {locator}")
         field = self.driver.find_element(*locator)
         current_value_in_field = field.get_attribute("value")
         if current_value_in_field != value:
@@ -40,6 +50,7 @@ class BasePage:
         return self
 
     def is_displayed(self, locator, context=None):
+        self.logger.info(f"{self.logger.name}: Assert is element displayed: {locator} with context {context}")
         if not context:
             context = self.driver
         try:
@@ -50,6 +61,7 @@ class BasePage:
     # Methods of working with MAIN NAV BAR
 
     def switch_currency_in_main_nav(self, to):
+        self.logger.info(f"{self.logger.name}: Switch currency to: {to}")
         if to == "EUR":
             locator = self._CURRENCY_MENU_ITEM_EUR
         elif to == "GBP":
@@ -65,4 +77,5 @@ class BasePage:
         return self
 
     def get_currency_text_from_main_nav(self):
+        self.logger.info(f"{self.logger.name}: Ger currency text")
         return self.driver.find_element(*self._MAIN_NAV_BAR_CURRENCY).text

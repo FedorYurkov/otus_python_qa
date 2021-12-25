@@ -13,5 +13,6 @@ class AdminMainPage(BasePage):
         super().__init__(app)
 
     def open_admin_products_page(self):
+        self.logger.info(f"{self.logger.name}: Open admin products page from menu")
         self.driver.find_element(*self._CATALOG_MENU_ITEM).click()
         self.driver.find_element(*self._PRODUCTS_MENU_ITEM).click()

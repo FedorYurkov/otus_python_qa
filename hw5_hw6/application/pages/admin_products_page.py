@@ -22,6 +22,7 @@ class AdminProductsPage(BasePage):
         super().__init__(app)
 
     def init_product_add(self):
+        self.logger.info(f"{self.logger.name}: Click ADD button")
         self.driver.find_element(*self._ADD_NEW_BUTTON).click()
         return self
 
@@ -34,6 +35,7 @@ class AdminProductsPage(BasePage):
         return self
 
     def open_data_tab(self):
+        self.logger.info(f"{self.logger.name}: Open product data tab")
         self.driver.find_element(*self._DATA_TAB_LABEL).click()
         return self
 
@@ -42,6 +44,7 @@ class AdminProductsPage(BasePage):
         return self
 
     def save_product(self):
+        self.logger.info(f"{self.logger.name}: Click Save button")
         self.driver.find_element(*self._SAVE_PRODUCT_BUTTON).click()
         return self
 
@@ -50,16 +53,20 @@ class AdminProductsPage(BasePage):
         return self.is_displayed(locator)
 
     def get_products_rows(self):
+        self.logger.info(f"{self.logger.name}: Get products rows web elements")
         return self.driver.find_elements(*self._PRODUCT_ROW_IN_PRODUCTS_TABLE)
 
     def mark_product_checked(self, product_row):
+        self.logger.info(f"{self.logger.name}: Click checkbox on product")
         product_row.find_element(*self._CHECKBOX_IN_RODUCT_ROW).click()
         return self
 
     def click_product_delete_button(self):
+        self.logger.info(f"{self.logger.name}: Click DElete button")
         self.driver.find_element(*self._DELETE_BUTTON).click()
         return self
 
     def confirm_product_delete(self):
+        self.logger.info(f"{self.logger.name}: Confirm alert")
         self.driver.switch_to.alert.accept()
         return self
