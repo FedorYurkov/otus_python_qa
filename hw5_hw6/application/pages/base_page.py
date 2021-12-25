@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+import allure
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -60,6 +61,7 @@ class BasePage:
 
     # Methods of working with MAIN NAV BAR
 
+    @allure.step("Switch currency to: {to}")
     def switch_currency_in_main_nav(self, to):
         self.logger.info(f"{self.logger.name}: Switch currency to: {to}")
         if to == "EUR":
@@ -76,6 +78,7 @@ class BasePage:
 
         return self
 
+    @allure.step("Get currency text")
     def get_currency_text_from_main_nav(self):
-        self.logger.info(f"{self.logger.name}: Ger currency text")
+        self.logger.info(f"{self.logger.name}: Get currency text")
         return self.driver.find_element(*self._MAIN_NAV_BAR_CURRENCY).text

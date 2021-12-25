@@ -3,6 +3,7 @@
 import logging
 from datetime import datetime
 
+import allure
 import pytest
 from selenium import webdriver
 
@@ -57,3 +58,11 @@ def app(request):
 
     request.addfinalizer(fin)
     return application
+
+
+def pytest_exception_interact(node):
+    allure.attach(
+        body=node.funcargs["app"].driver.get_screenshot_as_png(),
+        name="screenshot_image",
+        attachment_type=allure.attachment_type.PNG
+    )

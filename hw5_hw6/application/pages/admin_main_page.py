@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import allure
 from selenium.webdriver.common.by import By
 
 from hw5_hw6.application.pages.base_page import BasePage
@@ -12,6 +13,7 @@ class AdminMainPage(BasePage):
     def __init__(self, app):
         super().__init__(app)
 
+    @allure.step("Open products page from admin panel menu")
     def open_admin_products_page(self):
         self.logger.info(f"{self.logger.name}: Open admin products page from menu")
         self.driver.find_element(*self._CATALOG_MENU_ITEM).click()

@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 from time import time
 
+import allure
 import pytest
 
 from hw5_hw6.application.pages.admin_main_page import AdminMainPage
 from hw5_hw6.application.pages.admin_products_page import AdminProductsPage
 
 
+@allure.feature('Admin panel')
+@allure.story('Products')
+@allure.title('Add product')
 def test_add_new_product_from_admin(app):
     admin_user = {"login": "user", "password": "bitnami"}
     uniq = int(time())
@@ -29,6 +33,9 @@ def test_add_new_product_from_admin(app):
     assert admin_products_page.is_product_in_list(product["name"])
 
 
+@allure.feature('Admin panel')
+@allure.story('Products')
+@allure.title('Delete product')
 def test_remove_product_from_admin(app):
     admin_user = {"login": "user", "password": "bitnami"}
     admin_auth_page = app.open_admin_page()
@@ -45,6 +52,9 @@ def test_remove_product_from_admin(app):
     assert len(products_after) == len(products_before) - 1
 
 
+@allure.feature('User auth page')
+@allure.story('Registration')
+@allure.title('Correct user registration')
 def test_user_registration(app):
     user_auth_page = app.open_user_auth_page()
     uniq = int(time())
@@ -61,6 +71,9 @@ def test_user_registration(app):
     assert user_auth_page.get_content_title_text() == "Your Account Has Been Created!"
 
 
+@allure.feature('Main page')
+@allure.story('Validation')
+@allure.title('Currency switcher')
 @pytest.mark.parametrize("currency, currency_label", [("EUR", "€"), ("GBP", "£"), ("USD", "$")])
 def test_switch_currency_from_main_nav(app, currency, currency_label):
     main_page = app.open_main_page()

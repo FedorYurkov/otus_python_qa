@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 
+import allure
+
 from hw5_hw6.application.pages.admin_auth_page import AdminPage
 from hw5_hw6.application.pages.catalog_page import CatalogPage
 from hw5_hw6.application.pages.main_page import MainPage
@@ -28,6 +30,7 @@ class App:
         self.logger.addHandler(logging.FileHandler(self.driver.log_path))
         self.logger.setLevel(level=self.driver.log_level)
 
+    @allure.step("Open main page")
     def open_main_page(self):
         self.logger.info(f"{self.logger.name}: Opening url: {self.base_url}")
         self.driver.get(self.base_url)
@@ -35,6 +38,7 @@ class App:
             self.main_page = MainPage(self)
         return self.main_page
 
+    @allure.step("Open catalog page. Category {category_id}")
     def open_catalog_page(self, category_id=20):
         self.logger.info(f"{self.logger.name}: Opening url: {self.base_url}/index.php?route=product/category&path={category_id}")
         self.driver.get(self.base_url + f"/index.php?route=product/category&path={category_id}")
@@ -43,6 +47,7 @@ class App:
             self.catalog_page.category_id = category_id
         return self.catalog_page
 
+    @allure.step("Open product page. Product {product_id}")
     def open_product_page(self, product_id=43):
         self.logger.info(f"{self.logger.name}: Opening url: {self.base_url}/index.php?route=product/product&product_id={product_id}")
         self.driver.get(self.base_url + f"/index.php?route=product/product&product_id={product_id}")
@@ -51,6 +56,7 @@ class App:
             self.product_page.product_id = product_id
         return self.product_page
 
+    @allure.step("Open admin page")
     def open_admin_page(self):
         self.logger.info(f"{self.logger.name}: Opening url: {self.base_url}/admin/")
         self.driver.get(self.base_url + "/admin/")
@@ -58,6 +64,7 @@ class App:
             self.admin_page = AdminPage(self)
         return self.admin_page
 
+    @allure.step("Open user_auth page")
     def open_user_auth_page(self):
         self.logger.info(f"{self.logger.name}: Opening url: {self.base_url}/index.php?route=account/register")
         self.driver.get(self.base_url + "/index.php?route=account/register")

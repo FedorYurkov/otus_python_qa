@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import allure
 
 
+@allure.feature('Main page')
+@allure.story('Validation')
+@allure.title('Validation of page elements')
 def test_main_page_elements(app):
     main_page = app.open_main_page()
 

@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import allure
 
 
+@allure.feature('Product page')
+@allure.story('Validation')
+@allure.title('Validation of page elements')
 def test_product_page_elements(app):
     product_page = app.open_product_page()
 
