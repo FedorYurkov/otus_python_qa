@@ -36,8 +36,7 @@ for target_file in target_files:
             "OPTIONS": 0,
             "TRACE": 0,
             "PATCH": 0
-        },
-        "not_parsed_lines": []
+        }
     }
     all_requests_by_all_ips = {}
 
@@ -45,13 +44,14 @@ for target_file in target_files:
         idx = 0
 
         for line in file:
+            idx +=1
 
             ip_match = re.search("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", line)
             date_match = re.search(
                 "\d\d/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/\d\d\d\d:\d\d:\d\d:\d\d \+\d\d\d\d",
                 line)
-            method_match = re.search('] \"(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH|Head)', line)
-            url_match = re.search('"(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH|Head) (\S+) +HTTP', line)
+            method_match = re.search('] \"(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH)', line)
+            url_match = re.search('"(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH) (\S+) +HTTP', line)
             timing_str = line.split(" ")[-1]
 
             if ip_match and date_match and method_match and url_match:
@@ -60,13 +60,11 @@ for target_file in target_files:
                 method = method_match.group(1)
                 url = url_match.group(2)
             else:
-                result["not_parsed_lines"].append(line)
                 continue
 
             try:
                 timing = int(timing_str)
             except ValueError:
-                result["not_parsed_lines"].append(line)
                 continue
 
             # Quantity of method
@@ -95,7 +93,6 @@ for target_file in target_files:
             else:
                 all_requests_by_all_ips[ip] = 1
 
-            idx += 1
 
         # Top 3 IP most requests quantity IP
         sorted_keys = sorted(all_requests_by_all_ips, key=all_requests_by_all_ips.get, reverse=True)
