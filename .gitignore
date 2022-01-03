@@ -133,3 +133,6 @@ dmypy.json
 .idea/
 .idea/workspace.xml
 .cache/
+
+*/allure-report/*
+*/allure-results/*
