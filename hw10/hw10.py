@@ -6,7 +6,7 @@ import re
 
 result = run(["ps", "aux"], stderr=PIPE, stdout=PIPE)
 
-process_list = re.sub(" +", " ", result.stdout.decode("utf-8")).split("\n")
+process_list = result.stdout.decode("utf-8").split("\n")
 
 system_users = []
 users_process_count = {}
@@ -19,12 +19,12 @@ for item in process_list[1:]:
     if item == "":
         continue
 
-    parts = item.split(" ")
+    parts = item.split()
 
     user_name = parts[0]
     cpu_value = float(parts[2])
     mem_value = float(parts[3])
-    process_name_match = re.search(".+ \d{1,2}:\d\d \d{1,2}:\d\d (.+)", item)
+    process_name_match = re.search(".+ \d{1,2}:\d\d (.+)$", item)
     process_name = process_name_match.group(1)
 
     if user_name not in system_users:
@@ -38,10 +38,10 @@ for item in process_list[1:]:
     total_cpu += cpu_value
     total_mem += mem_value
 
-    if most_cpu_process["cpu"] < cpu_value:
+    if most_cpu_process["cpu"] <= cpu_value:
         most_cpu_process = {"process_name": process_name[:20], "cpu": cpu_value}
 
-    if most_mem_process["mem"] < mem_value:
+    if most_mem_process["mem"] <= mem_value:
         most_mem_process = {"process_name": process_name[:20], "mem": mem_value}
 
 formatted_user = ""
