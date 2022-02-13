@@ -1,0 +1,23 @@
+System state report:
+
+System users: 'root', 'systemd+', 'syslog', 'message+', 'avahi', 'whoopsie', 'kernoops', 'fedor', 'rtkit', 'colord'
+
+Total process running: 177
+
+Users process:
+root: 99
+systemd+: 2
+syslog: 1
+message+: 1
+avahi: 2
+whoopsie: 1
+kernoops: 2
+fedor: 66
+rtkit: 1
+colord: 1
+
+Total CPU used: 33.5%
+Total MEM used: 70.1%
+
+The most CPU used process: /snap/pycharm-commun: 25.0%
+The most MEM used process: /snap/pycharm-commun: 33.9%
